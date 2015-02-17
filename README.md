@@ -9,7 +9,7 @@ See the docs for behavioural specification.
 
 ### A type safe heterogeneous map (```HMap```).
 
-The map several type mappings to co-exist in one map.
+The map allows several type mappings to co-exist in one map.
 This gives capabilities usually associated with dynamic languages.
 A key difference is that the type mappings are known at compile time, so they are type safe, and
 the compiler infers value types from key types.
@@ -17,8 +17,8 @@ the compiler infers value types from key types.
 This implementation is similar to the one found in shapeless, but differs in the following ways:
 
 - The marbles ```HMap``` uses the type evidence as part of the key,
-while the shapeless one does not store it.Storing the evidence combats type erasure and allows:
-    - "type polymorphic" resolution of keys in runtime.
+while the shapeless one does not store it. Storing the evidence combats type erasure and allows:
+    - "type polymorphic" resolution of keys at runtime.
     - slicing the ```HMap``` by type.
     - running over all type mappings invoking specific code for each one (using ```HMapSection```)
     - one key to be mapped into many values of different types - useful for some caching situations.
@@ -28,20 +28,20 @@ while the shapeless one does not store it.Storing the evidence combats type eras
 
 We have found ```HMap``` to be useful in the following ways:
 
-- As an extensible record.
+- As an extensible record
 
-    ```HMap``` can be much more flexible then using case classes for holding data,
+    ```HMap```s can be much more flexible than using case classes for holding data,
     because extending them does not change their interface.
     They are also more flexible than traits,
-    because trait composition cannot occur dynamically in runtime.
+    because trait composition cannot occur dynamically at runtime.
     Singleton objects can be used as keys.
 
 - As a map between generic types
 
     For example, if we want to map from ```A[T]``` to ```B[T]``` in a type safe way
-    (can't do that with a regular map without).
+    (can't do that with a regular map).
 
-- As a type "switch".
+- As a type "switch"
 
     Generics allow the same code to work across many types.
     Shapeless ```Poly``` can be used to have different code for each type,
@@ -72,12 +72,12 @@ The library is still experimental and APIs could change.
 
 ## Feedback and contribution
 
-Ideas, issues and contributions all welcome. To contribute add a pull request.
+Ideas, issues and contributions all welcome. To contribute, make a pull request.
 
 ## Scala version
 
 Currently, the code is built against 2.10.4 although there should be no problem compiling against
-2.11.x
+2.11.x.
 
 We may add cross building once the code is more stable.
 
