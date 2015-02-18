@@ -1,5 +1,7 @@
 # marbles: Heterogeneous Maps and Memoization for Scala
 
+[![Join the chat at https://gitter.im/SupersonicAds/marbles](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SupersonicAds/marbles?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## What's inside?
 
 ### A thread safe memo (`PersistentMemo`).
