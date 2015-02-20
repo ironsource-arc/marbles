@@ -152,10 +152,4 @@ object HMap {
         acc + pair.kv
     }
 
-  /** An implicit class used to enable the friendly HMap.apply method.
-    *
-    * Each pair in the parameter list gets implicitly converted to [[HMapPair]].
-    */
-  implicit class HMapPair[M[_, _], K, V] private[HMap] (val kv: (K, V))(implicit val ev: M[K, V])
-
 }
