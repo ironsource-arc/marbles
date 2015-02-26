@@ -24,7 +24,7 @@ abstract class HMap[M[_, _]] extends Serializable {
     */
   protected val unsafeMap: Map[M[_, _], Map[_, _]]
 
-  override def hashCode(): Int = unsafeMap.hashCode()
+  override lazy val hashCode: Int = unsafeMap.hashCode()
 
   override def equals(obj: Any): Boolean =
     obj match {

@@ -147,7 +147,7 @@ class HMapTest extends FunSpec with Matchers {
 
   def check(left: HMap[M], right: HMap[M], shouldEqual: Boolean) = {
     (left == right) shouldBe shouldEqual
-    (left.hashCode() == right.hashCode()) shouldBe shouldEqual
+    (left.hashCode == right.hashCode) shouldBe shouldEqual
   }
 
   describe("hashcode & equals") {
