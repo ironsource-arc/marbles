@@ -25,7 +25,7 @@ class PersistentMemoTest extends FunSpec with Matchers {
 
     val firstAccessF = Future {
       memo.memoize(5) {
-        firstAccessBodyStartedP.success()
+        firstAccessBodyStartedP.success(())
         Await.ready(secondFutureDoneP.future, Duration.Inf)
         7
       }
@@ -39,7 +39,7 @@ class PersistentMemoTest extends FunSpec with Matchers {
 
     firstAccessF.isCompleted shouldBe false
 
-    secondFutureDoneP.success()
+    secondFutureDoneP.success(())
     Await.result(firstAccessF, Duration.Inf) shouldBe 7
   }
 
@@ -69,7 +69,7 @@ class PersistentMemoTest extends FunSpec with Matchers {
 
     val firstAccessFuture = Future {
       memo.memoize(0) {
-        firstAccessBodyStartedP.success()
+        firstAccessBodyStartedP.success(())
         Await.ready(secondFutureDoneP.future, Duration.Inf)
         7
       }
@@ -79,7 +79,7 @@ class PersistentMemoTest extends FunSpec with Matchers {
 
     val secondAccessFuture = Future {memo.memoize(0) {fail(); 3}}
 
-    secondFutureDoneP.success()
+    secondFutureDoneP.success(())
 
     Await.result(firstAccessFuture, Duration.Inf) shouldBe 7
 
@@ -114,7 +114,7 @@ class PersistentMemoTest extends FunSpec with Matchers {
 
     val firstAccessFuture = Future {
       memo.memoize(0) {
-        firstAccessBodyStartedP.success()
+        firstAccessBodyStartedP.success(())
         Await.ready(secondFutureDoneP.future, Duration.Inf)
         1 / 0
       }
@@ -124,7 +124,7 @@ class PersistentMemoTest extends FunSpec with Matchers {
 
     val secondAccessFuture = Future {memo.memoize(0)(3)}
 
-    secondFutureDoneP.success()
+    secondFutureDoneP.success(())
 
     intercept[ArithmeticException] {
       Await.result(firstAccessFuture, Duration.Inf)
@@ -178,7 +178,7 @@ class PersistentMemoTest extends FunSpec with Matchers {
 
       Future {
         memo.memoize(0) {
-          firstAccessBodyStartedP.success()
+          firstAccessBodyStartedP.success(())
           Await.ready(terminateP.future, Duration.Inf)
           7
         }
@@ -187,7 +187,7 @@ class PersistentMemoTest extends FunSpec with Matchers {
       Await.ready(firstAccessBodyStartedP.future, Duration.Inf)
 
       val snapshot = memo.getSnapshot
-      terminateP.success()
+      terminateP.success(())
 
       snapshot shouldBe Map(1 -> 55)
     }
