@@ -21,7 +21,7 @@ sealed abstract class HPair[M[_, _]] {
     case _ => false
   }
 
-  override def toString: String = s"HMapSection($evidence, $kv)"
+  override def toString: String = s"HPair($evidence, $kv)"
 
 }
 
