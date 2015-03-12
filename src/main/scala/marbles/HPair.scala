@@ -12,7 +12,11 @@ sealed abstract class HPair[M[_, _]] {
   /** Evidence that [[K]] and [[V]] are a valid pair under [[M]]. */
   implicit val evidence: M[K, V]
 
-  def kv: (K, V)
+  val kv: (K, V)
+
+  def key: K = kv._1
+
+  def value: V = kv._2
 
   override def hashCode(): Int = (evidence, kv).hashCode()
 
@@ -32,13 +36,13 @@ object HPair {
   implicit def fromPair[M[_, _], KK, VV](pair: (KK, VV))(implicit ev: M[KK, VV]): HPair[M] =
     new HPair[M] {
 
-      override type K = KK
+      type K = KK
 
-      override type V = VV
+      type V = VV
       
-      override def kv: (K, V) = pair
+      val kv: (K, V) = pair
 
-      override implicit val evidence: M[K, V] = ev
+      implicit val evidence: M[K, V] = ev
 
     }
 
