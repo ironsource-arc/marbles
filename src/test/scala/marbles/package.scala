@@ -14,4 +14,10 @@ package object marbles {
   val i3Hello = 3 -> "hello"
   val i4World = 4 -> "world"
 
+  trait TC[T]
+
+  implicit case object TCS extends TC[String]
+
+  implicit case object TCI extends TC[Int]
+
 }
