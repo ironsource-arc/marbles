@@ -12,10 +12,13 @@ sealed abstract class HPair[M[_, _]] {
   /** Evidence that [[K]] and [[V]] are a valid pair under [[M]]. */
   implicit val evidence: M[K, V]
 
+  /** The contained key-value pair. */
   val kv: (K, V)
 
+  /** The contained key. */
   def key: K = kv._1
 
+  /** The contained value. */
   def value: V = kv._2
 
   override def hashCode(): Int = (evidence, kv).hashCode()
