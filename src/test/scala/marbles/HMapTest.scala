@@ -15,7 +15,6 @@ class HMapTest extends FunSpec with Matchers {
         implicit case object NameEv extends PersonAttributes[Name.type , String]
       }
 
-
       case object Age {
         implicit case object HeightEv extends PersonAttributes[Age.type , Int]
       }
@@ -142,8 +141,6 @@ class HMapTest extends FunSpec with Matchers {
 
     }
   }
-
-
 
   def check(left: HMap[M], right: HMap[M], shouldEqual: Boolean) = {
     (left == right) shouldBe shouldEqual
