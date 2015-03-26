@@ -19,7 +19,7 @@ sealed abstract class HElem[M[_]] {
     case _ => false
   }
 
-  override def toString: String = s"HPair($evidence, $element)"
+  override def toString: String = s"HElem($evidence, $element)"
 
 }
 
