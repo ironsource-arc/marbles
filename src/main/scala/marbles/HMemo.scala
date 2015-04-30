@@ -37,6 +37,9 @@ trait HMemo[M[_, _]] {
     */
   def memoize[K, V](key: K)(body: => V)(implicit ev: M[K, V]): V
 
+  /** Optionally returns the value associated with a key. */
+  def get[K, V](key: K)(implicit ev: M[K, V]): Option[V]
+
   /** Returns an [[HMap]] of all completed computations currently stored in the memo. */
   def getSnapshot: HMap[M]
 

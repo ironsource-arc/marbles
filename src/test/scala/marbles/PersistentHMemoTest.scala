@@ -7,6 +7,16 @@ class PersistentHMemoTest extends FunSpec with Matchers {
 
   // Notice definitions at the package object
 
+  it("memoize then get") {
+    val hmemo = PersistentHMemo.empty[M]
+
+    hmemo.memoize("foo") {1}
+
+    hmemo.get("foo") shouldBe Some(1)
+
+    hmemo.get("bar") shouldBe None
+  }
+
   it("memoize then getSnapshot") {
     val hmemo = PersistentHMemo.empty[M]
 

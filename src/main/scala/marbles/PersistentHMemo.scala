@@ -30,6 +30,13 @@ class PersistentHMemo[M[_, _]] extends HMemo[M] {
     result.asInstanceOf[V]
   }
 
+  /** Optionally returns the value associated with a key.
+    *
+    * Will return a value if there's a completed computation for the given key, otherwise [[None]].
+    */
+  def get[K, V](key: K)(implicit ev: M[K, V]): Option[V] =
+    unsafeMemo.get((ev, key)).asInstanceOf[Option[V]]
+
   /** Returns an [[HMap]] of all completed computations currently stored in the memo.
     *
     * If a key-value pair is successfully memoized causally before invoking [[getSnapshot]] then
