@@ -136,6 +136,14 @@ class PersistentMemo[K, V] extends Memo[K, V] {
     }
   }
 
+
+  /** Optionally returns the value associated with a key.
+    *
+    * Will return a value if there's a completed computation for the given key, otherwise [[None]].
+    */
+  final def get(key: K): Option[V] =
+    table.get(key) collect {case Finished(value) => value}
+
   /** Returns a map of all completed computations currently stored in the memo.
     *
     * If a key-value pair is successfully memoized causally before invoking [[getSnapshot]] then

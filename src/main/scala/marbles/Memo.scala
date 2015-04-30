@@ -19,6 +19,9 @@ trait Memo[K, V] {
     */
   def memoize(key: K)(body: => V): V
 
+  /** Optionally returns the value associated with a key. */
+  def get(key: K): Option[V]
+
   /** Returns a map of all completed computations currently stored in the memo. */
   def getSnapshot: Map[K, V]
 

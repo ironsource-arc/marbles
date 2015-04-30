@@ -135,6 +135,48 @@ class PersistentMemoTest extends FunSpec with Matchers {
     memo.memoize(0)(555) shouldBe 3
   }
 
+  describe("get") {
+    it("should return Some(value) for completed computations") {
+      val memo = new PersistentMemo[Int, Int]
+
+      memo.memoize(0) {1}
+
+      memo.get(0) shouldBe Some(1)
+    }
+
+    it("should return None for non completed computation") {
+      val memo = new PersistentMemo[Int, Int]
+
+      val innerPromise = Promise[Unit]()
+      val outerPromise = Promise[Unit]()
+
+      Future {
+        memo.memoize(0) {
+          innerPromise.success(())
+          Await.ready(outerPromise.future, Duration.Inf)
+          1
+        }
+      }
+
+      Await.ready(innerPromise.future, Duration.Inf)
+
+      memo.get(0) shouldBe None
+
+      outerPromise.success(())
+
+      memo.memoize(0) {2} shouldBe 1
+
+    }
+
+    it("should return None if no computation has started for the key") {
+      val memo = new PersistentMemo[Int, Int]
+
+      memo.memoize(0) {1}
+
+      memo.get(1) shouldBe None
+    }
+  }
+
   describe("getSnapshot") {
 
     it("Empty") {
